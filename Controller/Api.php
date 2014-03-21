@@ -29,4 +29,14 @@ class Api extends \Cockpit\Controller {
 
         return $todo ? json_encode($todo) : '{}';
     }
+    
+    public function remove() {
+        $id = $this->param("id", null);
+
+        if($id) {
+            $this->app->db->remove("addons/todos", ["_id" => $id]);
+        }
+
+        return $id ? '{"success":true}' : '{"success":false}';
+    }
 }
