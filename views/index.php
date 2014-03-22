@@ -1,15 +1,3 @@
-<style>
-    #todo-list li form {
-        display: none;
-    }
-    #todo-list li.editing .view {
-        display: none;
-    }
-    #todo-list li.editing form {
-        display: block;
-    }
-</style>
-
 <div id="todos" ng-controller="todos">
 
     <div class="uk-navbar">
@@ -48,6 +36,7 @@
                             </td>
                             <td class="ng-binding">@@ todo.created | fmtdate:'d M, Y' @@</td>
                             <td class="uk-text-right">
+                                <a href data-ng-click="editTodo(todo)" title="@lang('Edit entry')"><i class="uk-icon-pencil"></i></a>
                                 <a href data-ng-click="removeTodo(todo)" title="@lang('Delete entry')"><i class="uk-icon-trash-o"></i></a>
                             </td>
                         </tr>
@@ -70,7 +59,6 @@
         $scope.newTodo = '';
 
         $scope.addTodo = function() {
-
             var title = prompt(App.i18n.get("Please enter a title:"), "");
 
             if (!title.length) {
@@ -81,24 +69,25 @@
                 title: title,
                 done: false
             });
-
         };
 
-        /*
          $scope.editTodo = function(todo) {
-         $scope.editedTodo = todo;
+             var title = prompt(App.i18n.get("Please enter a title:"), todo.title);
+             
+             if(!title.length) {
+                 return;
+             }
+             
+             todo.title = title;
+             
+             saveTodo(todo);
          };
-         */
 
         $scope.removeTodo = function(todo) {
-            removeTodo(todo);
+            App.Ui.confirm(App.i18n.get("Are you sure?"), function() {
+                removeTodo(todo);
+            });
         };
-
-        /*
-         $scope.doneEditing = function(todo) {
-         $scope.editedTodo = null;
-         };
-         */
 
         $scope.todoDone = function(todo) {
             saveTodo(todo);

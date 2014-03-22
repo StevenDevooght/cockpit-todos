@@ -5,7 +5,7 @@ $this->module("todos")->extend([
 
     "todos" => function() use($app) {
 
-        $todos = $app->db->find("addons/todos");
+        $todos = $app->db->getCollection("addons/todos");
     
         if($todos) {
             return $todos;
