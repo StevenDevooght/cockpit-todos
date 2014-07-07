@@ -24,6 +24,7 @@
                             <th>
                                 @lang('Title')                            
                             </th>
+                            <th width="15%">@lang('Last modified')</th>
                             <th width="15%">@lang('Created')</th>
                             <th width="10%">&nbsp;</th>
                         </tr>
@@ -34,7 +35,8 @@
                             <td>
                                 @@ todo.title @@
                             </td>
-                            <td class="ng-binding">@@ todo.created | fmtdate:'d M, Y' @@</td>
+                            <td>@@ todo.modified | fmtdate:'d M, Y' @@</td>
+                            <td>@@ todo.created | fmtdate:'d M, Y' @@</td>
                             <td class="uk-text-right">
                                 <a href data-ng-click="editTodo(todo)" title="@lang('Edit entry')"><i class="uk-icon-pencil"></i></a>
                                 <a href data-ng-click="removeTodo(todo)" title="@lang('Delete entry')"><i class="uk-icon-trash-o"></i></a>
@@ -99,21 +101,19 @@
                     $scope.todos.push(data);
                 }
             });
-        }
-        ;
+        };
 
         function removeTodo(todo) {
             $http.post(App.route("/api/todos/remove"), {"id": todo._id}).success(function(data) {
                 $scope.todos.splice($scope.todos.indexOf(todo), 1);
             });
-        }
+        };
 
         function fetchTodos() {
             $http.post(App.route("/api/todos/find")).success(function(data) {
                 $scope.todos = data;
             });
-        }
-        ;
+        };
 
     });
 

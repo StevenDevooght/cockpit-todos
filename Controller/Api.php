@@ -8,7 +8,7 @@ class Api extends \Cockpit\Controller {
 
         $todos = $this->app->db->find("addons/todos");
         
-        return json_encode($todos);
+        return json_encode($todos->toArray());
     }
     
     public function save(){
